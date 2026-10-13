@@ -1,0 +1,78 @@
+{
+  "intro": [
+    "Our aim is to create new techniques spanning process modeling, simulation, design, optimization and control, data analysis and decision support, and computational and applied mathematics.",
+    "The world economic trend and developing industries have led to significant growth of process systems engineering in renewable energy and in new process integration and improvement. Although process modeling and simulation have become accurate, fast and inexpensive enough to reduce reliance on plant scale-up, process design and control remain an important framework for solving the bottlenecks of a process.",
+    "Our research focuses on dynamic modeling, simulation and optimization for a class of complex chemical processes and energy systems. The mathematical models consist of nonlinear ordinary differential, differential-algebraic and partial differential equations, for which numerical analysis and solution techniques are essential."
+  ],
+
+  "areas": [
+    {
+      "id": "hydrogen",
+      "title": "Hydrogen & Fuel Cells",
+      "text": "We design and optimize routes to low-carbon hydrogen: gasification of biomass and waste, reforming of glycerol and methanol, chemical looping, and hydrogen liquefaction that recovers cold energy from LNG regasification. On the use side, we model on-board methanol-to-hydrogen processors for fuel cell vehicles and SOFC/gas turbine cogeneration systems."
+    },
+    {
+      "id": "carbon",
+      "title": "Carbon Capture & Low-Carbon Industry",
+      "text": "Process models for cutting emissions from heavy industry and power generation. Our studies cover amine-based CO2 capture with heat integration, low-carbon and oxygen blast furnaces, decarbonized cement production, oxy-fuel and IGCC power plants, and chemical- and calcium-looping systems, each assessed on energy, cost and emissions together."
+    },
+    {
+      "id": "biomass",
+      "title": "Biomass, Microalgae & Waste Conversion",
+      "text": "Turning biomass, plastic waste, sewage sludge, and fats, oils and grease into fuels, chemicals and power. The work spans gasification and co-gasification modeling, polygeneration plant design, hydrothermal liquefaction and microalgae biorefineries, including microalgae-based wastewater treatment for pig farming."
+    },
+    {
+      "id": "renewable",
+      "title": "Renewable Energy & Biofuel Systems",
+      "text": "Energy and exergy analysis of geothermal and organic Rankine cycle systems, solar thermal collectors and dryers, and the optimal dispatch of hybrid energy systems for low-carbon communities, alongside engine studies of biodiesel and other biofuels."
+    },
+    {
+      "id": "process",
+      "title": "Process Design, Intensification & Control",
+      "text": "Reactive, extractive and pressure-swing distillation designed for flexibility as well as cost, chromatographic separation of multicomponent mixtures, green solvent production through process intensification, and plantwide control of industrial units."
+    },
+    {
+      "id": "lca",
+      "title": "Life Cycle & Environmental Assessment",
+      "text": "Life cycle assessment carried out side by side with techno-economic analysis, so that a process is judged on its environmental impact as well as its cost. Recent subjects include microalgae-to-biofuel chains, methanol and hydrogen supply for fuel cell vehicles, cement production and fluid catalytic cracking units."
+    },
+    {
+      "id": "ai",
+      "title": "AI & Data-Driven Modeling",
+      "text": "Machine learning where first-principles models are slow or incomplete: physics-informed neural networks for waste gasification, surrogate models for process optimization under uncertainty, emission prediction for gas-fired power plants, and remaining-useful-life estimation for industrial equipment."
+    }
+  ],
+
+  "tools_title": "Tools & Methods",
+  "tools": ["Aspen Plus", "gPROMS", "Ansys Fluent", "MATLAB", "Python", "GAMS", "SimaPro", "ADVISOR", "Large Language Models (LLMs)"],
+
+  "projects_title": "Projects funded by the National Science and Technology Council (NSTC, formerly MOST and NSC)",
+
+  "projects": [
+    {"year": 2026, "period": "2026–2027", "title": "Development of an End-to-End Catalytic Distillation Platform Powered by Large Language Models (I)", "title_zh": "開發由大型語言模型驅動的端到端催化蒸餾平台 (I)", "grant": "NSTC115-2224-E006-005"},
+    {"year": 2025, "period": "2025–2027", "title": "Conceptual Design and Energy, Economic and Environmental (3E) Analysis of Direct Air Capture of CO2", "title_zh": "直接空氣捕捉二氧化碳的概念設計和能源、經濟和環境 (3E) 分析", "grant": "NSTC114-2221-E006-029-MY2"},
+    {"year": 2024, "period": "2024–2025", "title": "Process Design and Environmental Impact Assessment of Polygeneration Systems Based on Machine Learning-Assisted Modeling of Hydrothermal Liquefaction of Microalgae", "title_zh": "以機器學習輔助建立微藻水熱液化模式之多元生產製程設計與環境衝擊評估", "grant": "NSTC113-2221-E006-019"},
+    {"year": 2022, "period": "2022–2023", "title": "Design, Simulation and Analysis of Novel Plastic Waste-to-Fuels Processes", "title_zh": "設計，模擬與分析新的廢塑料轉換至多元燃料製程", "grant": "MOST111-2221-E006-005"},
+    {"year": 2021, "period": "2021–2022", "title": "The Study of Fault Detection and Diagnosis in Industrial Chemical Process Using Improved Deep Learning Mechanisms", "title_zh": "精進深度學習機制應用於工業級化工製程之失誤偵測與診斷研究", "grant": "MOST110-2221-E006-024"},
+    {"year": 2019, "period": "2019–2021", "title": "The Polygeneration Design and Economic Evaluation for Biomass Gasification Process Using Chemical-Looping Technologies", "title_zh": "結合化學迴路技術的生質物氣化程序之多聯產設計與經濟評估", "grant": "MOST108-2221-E006-151"},
+    {"year": 2018, "period": "2018–2019", "title": "The Study of the New Integrated Coal/Biomass Cogasification Combined Cycle Power Systems with Negative Carbon Emissions", "title_zh": "新型煤和生質物共氣化複循環發電系統的負碳排放研究", "grant": "MOST107-2221-E006-101"},
+    {"year": 2017, "period": "2017–2018", "title": "Design and Dynamic Modeling of a Compact Alcohol-Fed Hydrogen Production System", "title_zh": "以酒精進料的小型產氫系統之設計與動態模式建立", "grant": "MOST106-2221-E006-201"},
+    {"year": 2016, "period": "2016–2017", "title": "Design of the Compact Ammonia Fuel Processor and Its Application", "title_zh": "小型氨燃料處理系統設計與應用", "grant": "MOST105-2221-E006-239"},
+    {"year": 2015, "period": "2015–2016", "title": "Design and Economic Evaluation of a Wastewater-Fed Hybrid Power Generation System", "title_zh": "以廢水為進料的混合式發電系統設計與經濟評估", "grant": "MOST104-2221-E006-239"},
+    {"year": 2014, "period": "2014–2015", "title": "The Study of Application and Improvement of Gasification Processes Using Torrefied Biomass", "title_zh": "焙燒生質物氣化製程改善與應用研究", "grant": "MOST103-2221-E006-251"},
+    {"year": 2013, "period": "2013–2014", "title": "Design and Performance Evaluation of a SOFC/GT Hybrid Power System", "title_zh": "SOFC/GT 混合式發電系統設計與性能評估", "grant": "NSC102-2221-E006-258"},
+    {"year": 2013, "period": "2013–2014", "title": "The Development of an Energy-Saving, High-Purity DMF Recovery Control System", "title_zh": "開發具節能與高純度的二甲基甲醯胺(DMF)回收控制系統", "grant": "NSC102-2622-E006-014-CC2"},
+    {"year": 2012, "period": "2012–2013", "title": "The Study of a Stand-Alone Hydrogen Production System with Low Carbon Dioxide Emissions", "title_zh": "具低二氧化碳排放的獨立型產氫系統之研究", "grant": "NSC101-2221-E006-218"},
+    {"year": 2011, "period": "2011–2012", "title": "The Study of Reformer-Based Hydrogen Production System Subject to Energy Saving and Carbon Dioxide Reduction", "title_zh": "重組式產氫系統之節能減碳研究", "grant": "NSC100-2221-E006-264"}
+  ],
+
+  "team_projects_title": "Collaborative programmes",
+
+  "team_projects": [
+    {"year": 2025, "period": "2025–2026", "title": "Development of Low-Carbon Ironmaking and Steelmaking Technologies (I)", "title_zh": "低碳鋼鐵冶煉技術開發 (I)", "grant": "NSTC114-2622-8006-016"},
+    {"year": 2024, "period": "2024–2027", "title": "Establishing a Carbon-Negative Industrial Chain and Circular Platform through the Development of an Efficient and Smart Microalgae Carbon-Fixation Module and Value-Added Products (I–III)", "title_zh": "以高效智慧微藻固碳模組及加值化產品開發建立負碳產業鏈循環平台 (I–III)", "grant": "NSTC113-2321-B029-002"},
+    {"year": 2022, "period": "2022–2025", "title": "Development of Low Carbon Emission Technologies for Blast Furnace Ironmaking Process (I–III)", "title_zh": "高爐低碳煉鐵技術開發 (I–III)", "grant": "NSTC111-2622-8006-029"},
+    {"year": 2017, "period": "2017–2018", "title": "Developing Commercialization Technology for High-Value CO2 Utilization Using Algae-Based CO2 Fixation and Biorefinery Platform (I–II)", "title_zh": "以藻類固碳與生物精煉平台進行二氧化碳高值化利用及商業化技術開發 (I–II)", "grant": "MOST106-3113-E006-011"},
+    {"year": 2013, "period": "2013–2016", "title": "Technological Research and Promotion Center for Efficient Separation/Purification and Mixing/Dispersion", "title_zh": "高效率分離純化與混合分散基礎技術研究及推展中心規劃計畫", "grant": "NSC102-2218-E006-003"}
+  ]
+}

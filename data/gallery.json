@@ -1,0 +1,37 @@
+{
+  "events": [
+    {
+      "title": "Thanksgiving at GESE",
+      "date": "2024",
+      "text": "",
+      "photos": [
+        "2024-thanksgiving/01.jpg"
+      ]
+    },
+    {
+      "title": "Net Zero Tech International Contest",
+      "date": "2024",
+      "text": "Second Runner-Up at the 2024 Net Zero Tech International Contest in Taiwan.",
+      "photos": [
+        "2024-net-zero-tech/01.jpg",
+        "2024-net-zero-tech/02.jpg"
+      ]
+    },
+    {
+      "title": "Group photos",
+      "date": "",
+      "text": "Gatherings and group photos of the lab over the years.",
+      "photos": [
+        "group/01.jpg",
+        "group/02.jpg",
+        "group/03.jpg",
+        "group/04.jpg",
+        "group/05.jpg",
+        "group/06.jpg",
+        "group/07.jpg",
+        "group/08.jpg",
+        "group/09.jpg"
+      ]
+    }
+  ]
+}

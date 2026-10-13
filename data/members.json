@@ -1,0 +1,90 @@
+{
+  "groups": [
+    { "id": "professor", "title": "Professor", "role": "Professor" },
+    { "id": "postdoc", "title": "Postdoctoral Researchers", "role": "Postdoctoral Researcher" },
+    { "id": "phd", "title": "PhD Students", "role": "PhD Student" },
+    { "id": "m2", "title": "Master's Students, 2nd Year", "role": "MS Student, 2nd Year" },
+    { "id": "m1", "title": "Master's Students, 1st Year", "role": "MS Student, 1st Year" },
+    { "id": "undergrad", "title": "Undergraduate Researchers", "role": "Undergraduate Researcher" },
+    { "id": "staff", "title": "Staff", "role": "Staff" }
+  ],
+
+  "people": [
+    {
+      "id": "wei-wu",
+      "group": "professor",
+      "name": "Wei Wu",
+      "name_zh": "吳煒",
+      "title": "Professor",
+      "photo": "assets/people/weiwu.jpg",
+      "email": "weiwu@mail.ncku.edu.tw",
+      "office": "Room 93A13, Department of Chemical Engineering, National Cheng Kung University",
+      "phone": "(06) 275-7575 ext. 62689",
+      "links": {
+        "Google Scholar": "https://scholar.google.com/citations?user=I7JS6zMAAAAj",
+        "NCKU Research": "https://researchoutput.ncku.edu.tw/en/persons/wei-wu"
+      },
+      "bio": [
+        "Professor of Chemical Engineering at National Cheng Kung University since February 2011."
+      ],
+      "interests": [
+        "Green energy systems engineering",
+        "Process intensification and optimization",
+        "Process design and control",
+        "Life cycle analysis"
+      ],
+      "experience": [
+        "Associate Professor and Professor, Department of Chemical Engineering, National Yunlin University of Science and Technology (2000-2011)",
+        "Director, Department of Chemical Materials, National Yunlin University of Science and Technology (2005-2008)",
+        "Visiting Scholar, Department of Chemical Engineering, University of California, Los Angeles (2004)",
+        "Visiting Scholar, Department of Chemical Engineering, University of Delaware, USA (2009-2010)",
+        "Visiting Professor, School of Chemical Engineering, East China University of Science and Technology, Shanghai (2010)",
+        "Visiting Professor, School of Chemistry, Wuhan University of Technology (2013-present)",
+        "Visiting Scholar, Department of Chemical Engineering, Texas A&M University, USA (2015)"
+      ]
+    },
+
+    {
+      "id": "adi",
+      "group": "postdoc",
+      "name": "Vincentius Surya Kurnia Adi"
+    },
+
+    {
+      "id": "yashar-aryanfar",
+      "group": "postdoc",
+      "name": "Yashar Aryanfar",
+      "photo": "assets/people/yashar.jpg",
+      "bio": [
+        "Dr. Aryanfar earned his Ph.D. in Advanced Engineering Sciences from the Autonomous University of Ciudad Juarez (UACJ) in Mexico and is currently a postdoctoral researcher in the lab."
+      ],
+      "interests": [
+        "Energy and environmental sciences",
+        "Renewable energy",
+        "4E (energy, exergy, economic and environmental) analysis",
+        "Geothermal systems",
+        "Wastewater treatment and energy systems"
+      ],
+      "education": ["Ph.D., Advanced Engineering Sciences, Autonomous University of Ciudad Juarez (UACJ), Mexico"]
+    },
+
+    
+    { "id": "irfan", "group": "phd", "name": "Irfan", "photo": "assets/people/irfan.jpg" },
+    { "id": "deb", "group": "phd", "name": "Debayan Mazumdar" },
+
+    { "id": "hugo", "group": "m2", "name": "Hugo", "photo": "assets/people/hugo.jpg", "name_zh": "黃令雄" },
+    { "id": "alan", "group": "m2", "name": "Alan", "name_zh": "蔡宗霖", "photo": "assets/people/alan.jpg" },
+    { "id": "kai", "group": "m2", "name": "Kai", "name_zh": "陳威愷", "photo": "assets/people/kai.jpg" },
+    { "id": "gary2", "group": "m2", "name": "Gary", "name_zh": "楊孮銘", "photo": "assets/people/gary2.jpg" },
+    { "id": "brian", "group": "m2", "name": "Brian", "name_zh": "劉家安", "photo": "assets/people/brian.jpg" },
+    { "id": "hank", "group": "m2", "name": "Hank", "name_zh": "吳承翰", "photo": "assets/people/hank.jpg" },
+    { "id": "leaf", "group": "m2", "name": "Leaf", "name_zh": "葉良浩", "photo": "assets/people/leaf.jpg" },
+
+    { "id": "tammy", "group": "m1", "name": "Tammy", "name_zh": "孫欣佑", "photo": "assets/people/tammy.jpg" },
+    { "id": "iris", "group": "m1", "name": "Iris", "name_zh": "呂元薰", "photo": "assets/people/iris.jpg" },
+    { "id": "mark", "group": "m1", "name": "Mark", "name_zh": "馬維君" },
+    { "id": "jared", "group": "m1", "name": "Jared", "name_zh": "謝志堯" },
+    { "id": "tommy", "group": "m1", "name": "Tommy", "name_zh": "林世庭", "photo": "assets/people/tommy.jpg" },
+    { "id": "zoe", "group": "m1", "name": "Zoe", "name_zh": "王之賢" }
+  ]
+}

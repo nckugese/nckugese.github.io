@@ -1,0 +1,31 @@
+{
+  "people": [
+    { "id": "bob-huang", "name": "Bob", "name_zh": "黃信華", "degree": "M.S.", "year": 2026, "photo": "assets/people/bob-huang.jpg" },
+    { "id": "david", "name": "David", "name_zh": "林柏龍", "degree": "M.S.", "year": 2026, "photo": "assets/people/david.jpg" },
+    { "id": "harry", "name": "Harry", "name_zh": "蘇王尹", "degree": "M.S.", "year": 2026, "photo": "assets/people/harry.jpg" },
+    { "id": "leo", "name": "Leo", "name_zh": "劉諒宇", "degree": "M.S.", "year": 2026, "photo": "assets/people/leo.jpg" },
+    { "id": "benson", "name": "Benson", "name_zh": "何柏成", "degree": "M.S.", "year": 2026, "photo": "assets/people/benson.jpg" },
+
+    { "id": "ikhsan-taipabu", "name": "Muhammad Ikhsan Taipabu", "name_zh": "泰普曼", "degree": "Ph.D.", "year": 2025, "photo": "assets/people/ikhsan-taipabu.jpg" },
+    { "id": "howard", "name": "Howard", "name_zh": "曾慶豪", "degree": "M.S.", "year": 2025, "photo": "assets/people/howard.jpg" },
+    { "id": "qian", "name": "Qian", "name_zh": "林至謙", "degree": "M.S.", "year": 2025, "photo": "assets/people/qian.jpg" },
+    { "id": "gary", "name": "Gary", "name_zh": "張宸語", "degree": "M.S.", "year": 2025, "photo": "assets/people/gary.jpg" },
+    { "id": "ethan", "name": "Ethan", "name_zh": "林奕勝", "degree": "M.S.", "year": 2025, "photo": "assets/people/ethan.jpg" },
+    { "id": "dio", "name": "Dio", "name_zh": "連俞程", "degree": "M.S.", "year": 2025, "photo": "assets/people/dio.jpg" },
+    { "id": "frame", "name": "Tanawat Aentung", "name_zh": "孔錦成", "degree": "M.S.", "year": 2025 },
+
+    { "id": "connor", "name": "Connor", "name_zh": "石磊", "degree": "M.S.", "year": 2024, "photo": "assets/people/connor.jpg" },
+    { "id": "daniel", "name": "Daniel", "name_zh": "陳奕銘", "degree": "M.S.", "year": 2024, "photo": "assets/people/daniel.jpg" },
+    { "id": "benjamin", "name": "Benjamin", "name_zh": "楊朝全", "degree": "M.S.", "year": 2024, "photo": "assets/people/benjamin.jpg" },
+    { "id": "bill-tsai", "name": "Bill", "name_zh": "蔡宇勛", "degree": "M.S.", "year": 2024, "photo": "assets/people/bill-tsai.jpg" },
+    { "id": "bob-chou", "name": "Bob", "name_zh": "周邦彥", "degree": "M.S.", "year": 2024, "photo": "assets/people/bob-chou.jpg" },
+
+    { "id": "steve", "name": "Steve", "name_zh": "李承宥", "degree": "M.S.", "year": 2023, "photo": "assets/people/steve.jpg" },
+    { "id": "davin", "name": "Davin", "name_zh": "游淳洋", "degree": "M.S.", "year": 2023, "photo": "assets/people/davin.jpg" },
+    { "id": "billy", "name": "Billy", "name_zh": "梁哲崙", "degree": "M.S.", "year": 2023, "photo": "assets/people/billy.jpg" },
+    { "id": "johnny", "name": "Johnny", "name_zh": "廖伯軒", "degree": "M.S.", "year": 2023, "photo": "assets/people/johnny.jpg" },
+    { "id": "ricky", "name": "Ricky", "name_zh": "余柱良", "degree": "M.S.", "year": 2023, "photo": "assets/people/ricky.jpg" },
+    { "id": "nattapat", "name": "Nattapat Pongboriboon", "name_zh": "彭納特", "degree": "M.S.", "year": 2023 },
+    { "id": "nitsara", "name": "Nitsara Panichkittikul", "name_zh": "浩然", "degree": "M.S.", "year": 2023 }
+  ]
+}
