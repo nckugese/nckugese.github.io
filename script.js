@@ -7,6 +7,8 @@ const PAGES = [
   { id: "contact", label: "Contact", href: "contact.html", icon: "M3 6h18v12H3zM3 7l9 6 9-6" },
 ];
 
+const MARK = `<svg class="mark" viewBox="8 8 84 84" aria-hidden="true"><path d="M36 34V80M36 34L44.5 19.3M36 34L44.5 48.7M36 34H19M56 80V60H68V52H80V80M12 80H88"/><circle cx="72" cy="30" r="9"/></svg>`;
+
 const current = document.body.dataset.page;
 
 const links = PAGES.map(
@@ -21,8 +23,11 @@ const links = PAGES.map(
 
 document.querySelector(".sidebar").innerHTML = `
   <a class="brand" href="index.html">
-    <span class="brand-name">GESE</span>
-    <span class="brand-sub">Green Energy &amp; System Engineering</span>
+    ${MARK}
+    <span class="brand-text">
+      <span class="brand-name">GESE</span>
+      <span class="brand-sub">Green Energy &amp; System Engineering</span>
+    </span>
   </a>
   <nav aria-label="Main">
     <ul class="nav">${links}</ul>
@@ -254,13 +259,23 @@ if (CSS.supports("backdrop-filter", "url(#a)") && /Chrome\//.test(navigator.user
   };
 }
 
+const sign = () =>
+  document.querySelectorAll(".footer:not(.signed)").forEach((footer) => {
+    footer.classList.add("signed");
+    footer.insertAdjacentHTML("afterbegin", MARK);
+  });
+
 window.glass?.frost(document.querySelector(".shell"));
+sign();
 enhance(document);
 
 const runViews = () =>
   Promise.all(
     [...document.querySelectorAll("[data-view]")].map((el) => window.views?.[el.dataset.view]?.(el))
-  ).then(() => enhance(document));
+  ).then(() => {
+    sign();
+    enhance(document);
+  });
 
 document.addEventListener("views:updated", () => {
   pruneLenses();

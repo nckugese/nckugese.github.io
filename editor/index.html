@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex">
   <title>GESE Site Editor</title>
+  <link rel="icon" href="../favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="192x192" href="../assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
   <style>
     :root {
       --bg: #f4f2ef;
@@ -50,9 +53,26 @@
     }
 
     header h1 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       margin: 0;
       font-size: 1.05rem;
       white-space: nowrap;
+    }
+
+    .mark {
+      width: 28px;
+      height: 28px;
+      fill: none;
+      stroke: #302a25;
+      stroke-width: 6.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .mark circle {
+      stroke: #ba6e38;
     }
 
     .tabs {
@@ -457,7 +477,7 @@
 </head>
 <body>
   <header>
-    <h1>GESE <span data-t="app"></span></h1>
+    <h1><svg class="mark" viewBox="8 8 84 84" aria-hidden="true"><path d="M36 34V80M36 34L44.5 19.3M36 34L44.5 48.7M36 34H19M56 80V60H68V52H80V80M12 80H88"/><circle cx="72" cy="30" r="9"/></svg> GESE <span data-t="app"></span></h1>
     <nav class="tabs" id="tabs"></nav>
     <span class="status" id="status"></span>
     <button class="btn" id="lang" type="button"></button>
