@@ -53,14 +53,21 @@ const slot = (a) => {
 const slide = window.createGlide(pill, {
   horizontal: isBar,
   ready: () => pill.classList.contains("is-ready"),
-  frame: () => window.glass?.refresh(),
+  frame: () => window.glass?.mark(pill),
 });
 const { shape, paint, halt, to: glide } = slide;
+
+const seat = (a) => {
+  const s = slot(a);
+  if (!isBar()) return s;
+  const h = Math.min(s.h, s.w * 0.8);
+  return { ...s, y: s.y + (s.h - h) / 2, h };
+};
 
 const settle = () => {
   const a = tabs.find((tab) => tab.hasAttribute("aria-current"));
   pill.hidden = !a;
-  if (a) glide(slot(a));
+  if (a) glide(seat(a));
 };
 
 const setCurrent = (url) => {
@@ -376,8 +383,8 @@ const lift = () => {
   pill.hidden = false;
   pill.classList.add("is-held");
   if (pill.classList.contains("has-glass")) {
-    const rest = slot(tabs[0]);
-    shape.w = rest.w * 1.14;
+    const rest = seat(tabs[0]);
+    shape.w = rest.w * 1.4;
     shape.h = rest.h * 1.3;
     shape.y = rest.y - rest.h * 0.15;
   } else {
@@ -423,7 +430,7 @@ nav.addEventListener("pointerdown", (e) => {
   if (e.pointerType !== "mouse" || e.button !== 0 || !a) return;
   previewing = true;
   pill.hidden = false;
-  glide(slot(a));
+  glide(seat(a));
 });
 
 window.addEventListener("pointerup", () => {

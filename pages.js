@@ -254,7 +254,7 @@ window.createGlide = (el, { horizontal, ready, frame }) => {
       const slide = window.createGlide(thumb, {
         horizontal: () => true,
         ready: () => placed,
-        frame: () => window.glass?.refresh(),
+        frame: () => window.glass?.mark(thumb),
       });
       const place = () => {
         const on = buttons.find((button) => button.dataset.pubView === pubView);

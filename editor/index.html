@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>GESE Site Editor</title>
+  <style>
+    :root {
+      --bg: #f4f2ef;
+      --panel: #ffffff;
+      --line: #e3ded8;
+      --text: #24211e;
+      --muted: #7a726a;
+      --accent: #3b5b7a;
+      --accent-soft: #e6edf4;
+      --danger: #a3402f;
+      --ok: #3d6b45;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+      color: inherit;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 12px 20px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.05rem;
+      white-space: nowrap;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 4px;
+      flex: 1;
+      flex-wrap: wrap;
+    }
+
+    .tabs button {
+      padding: 7px 14px;
+      border: 0;
+      border-radius: 8px;
+      background: none;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .tabs button[aria-current="true"] {
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      border-color: #c9c1b8;
+    }
+
+    .btn.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn.primary:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+
+    .btn.danger {
+      color: var(--danger);
+    }
+
+    .btn.small {
+      padding: 4px 10px;
+      font-size: 0.85rem;
+    }
+
+    .status {
+      color: var(--muted);
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .status.dirty {
+      color: var(--danger);
+    }
+
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .welcome {
+      max-width: 720px;
+      margin: 40px auto;
+      padding: 32px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    .welcome h2 {
+      margin-top: 0;
+    }
+
+    .welcome ol {
+      padding-left: 1.3em;
+    }
+
+    .welcome li {
+      margin: 6px 0;
+    }
+
+    .warn {
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: #fbefe9;
+      color: var(--danger);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 340px minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .list,
+    .form {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    .list {
+      position: sticky;
+      top: 76px;
+      max-height: calc(100vh - 96px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .list-head {
+      display: flex;
+      gap: 8px;
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .list-head input {
+      flex: 1;
+      min-width: 0;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .list-body {
+      overflow-y: auto;
+      padding: 6px;
+    }
+
+    .list-group {
+      padding: 12px 10px 4px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 8px 10px;
+      border: 0;
+      border-radius: 8px;
+      background: none;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .item:hover {
+      background: #f6f4f1;
+    }
+
+    .item[aria-current="true"] {
+      background: var(--accent-soft);
+    }
+
+    .item img,
+    .item .ph {
+      width: 34px;
+      height: 34px;
+      flex: none;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #e9e5e0;
+    }
+
+    .item .thumb {
+      border-radius: 6px;
+    }
+
+    .item span {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .item small {
+      display: block;
+      color: var(--muted);
+    }
+
+    .form {
+      padding: 22px 26px 28px;
+    }
+
+    .form-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .form-head h2 {
+      flex: 1;
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .field {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr);
+      gap: 4px 16px;
+      padding: 10px 0;
+      border-top: 1px solid #f0ece7;
+    }
+
+    .field > label {
+      padding-top: 7px;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .field .req {
+      color: var(--danger);
+    }
+
+    .field input[type="text"],
+    .field input[type="number"],
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .field textarea {
+      min-height: 84px;
+      resize: vertical;
+    }
+
+    .hint {
+      grid-column: 2;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .photo-box {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .photo-box img,
+    .photo-box .ph {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #e9e5e0;
+    }
+
+    .photo-box div {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .links-row {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr) auto;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .shots {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 12px;
+    }
+
+    .shot {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #faf8f6;
+    }
+
+    .shot img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: #e9e5e0;
+    }
+
+    .shot input {
+      width: 100%;
+      padding: 6px 8px;
+      border: 0;
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .shot .row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px;
+    }
+
+    .shot .row button {
+      padding: 2px 8px;
+      border: 0;
+      border-radius: 6px;
+      background: none;
+      cursor: pointer;
+    }
+
+    .shot .row button:hover {
+      background: #eee9e3;
+    }
+
+    .cover {
+      font-size: 0.75rem;
+      color: var(--accent);
+      padding: 4px 8px 0;
+    }
+
+    .empty {
+      padding: 40px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 9;
+      max-width: min(92vw, 640px);
+      padding: 12px 18px;
+      border-radius: 10px;
+      background: #2c2925;
+      color: #fff;
+      white-space: pre-line;
+      transform: translateX(-50%);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .toast.bad {
+      background: var(--danger);
+    }
+
+    .grad {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin: -6px 0 16px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #f6f4f1;
+    }
+
+    .grad input {
+      width: 110px;
+      padding: 6px 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .list {
+        position: static;
+        max-height: 340px;
+      }
+
+      .field {
+        grid-template-columns: 1fr;
+      }
+
+      .hint {
+        grid-column: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>GESE <span data-t="app"></span></h1>
+    <nav class="tabs" id="tabs"></nav>
+    <span class="status" id="status"></span>
+    <button class="btn" id="lang" type="button"></button>
+    <button class="btn primary" id="save" type="button" disabled></button>
+  </header>
+  <main id="app"></main>
+
+  <script>
+    const TEXT = {
+      zh: {
+        app: "網站編輯器",
+        lang: "English",
+        save: "儲存",
+        saved: "已儲存",
+        unsaved: "有未儲存的修改",
+        noFolder: "尚未開啟資料夾",
+        tab_members: "成員",
+        tab_alumni: "畢業生",
+        tab_publications: "論文",
+        tab_gallery: "活動與相簿",
+        welcomeTitle: "開始之前",
+        welcomeSteps: [
+          "用 GitHub Desktop 把網站下載到電腦（Clone repository：nckugese/nckugese.github.io）。",
+          "按下方按鈕，選擇剛剛下載的網站資料夾（裡面有 index.html 和 data 資料夾的那一層）。",
+          "在上方切換分頁編輯，改完按右上角「儲存」。",
+          "回到 GitHub Desktop，寫一句說明，按 Commit，再按 Push origin，網站約一兩分鐘後更新。",
+        ],
+        welcomePublic: "網站是公開的：電話、email、照片等個人資訊，請先確認本人同意公開。",
+        open: "開啟網站資料夾",
+        unsupported: "這個瀏覽器不支援直接存檔。請改用電腦版 Chrome 或 Edge 開啟。",
+        wrongFolder: "這個資料夾裡找不到 data/members.json，請選擇網站的最上層資料夾。",
+        add: "新增",
+        search: "搜尋",
+        up: "上移",
+        down: "下移",
+        remove: "刪除",
+        confirmRemove: "確定要刪除「{name}」嗎？",
+        nothing: "左邊選一項開始編輯，或按「新增」。",
+        newPerson: "新成員",
+        newPaper: "新論文",
+        newEvent: "新活動",
+        graduate: "畢業，移到畢業生",
+        gradDegree: "學位",
+        gradYear: "畢業年份",
+        gradGo: "移過去",
+        cancel: "取消",
+        name: "英文姓名",
+        name_zh: "中文姓名",
+        id: "代號",
+        idHint: "個人頁網址用，只能用小寫英文、數字和 -，不能和別人重複。新增成員時會依姓名自動產生。",
+        group: "年級／身分",
+        title: "顯示的身分",
+        titleHint: "不填就用年級的預設文字。",
+        photo: "照片",
+        photoHint: "會自動裁成正方形、縮小並移除拍攝資訊。",
+        pick: "選擇照片",
+        clear: "移除照片",
+        email: "Email",
+        publicHint: "會公開顯示在網站上。",
+        links: "連結",
+        linkName: "顯示文字",
+        linkUrl: "網址",
+        addLink: "新增連結",
+        bio: "自我介紹",
+        interests: "研究興趣",
+        experience: "經歷",
+        education: "學歷",
+        linesHint: "一行一項。",
+        office: "辦公室／座位",
+        phone: "電話",
+        degree: "學位",
+        year: "年份",
+        thesis: "論文題目",
+        now: "現職",
+        paperTitle: "論文標題",
+        authors: "作者",
+        venue: "期刊、卷期、頁碼",
+        link: "論文連結",
+        linkHint: "建議用 DOI 連結，例如 https://doi.org/10.xxxx/...",
+        kind: "類型",
+        kind_journal: "期刊論文",
+        kind_conference: "研討會論文",
+        kind_chapter: "專書章節",
+        field: "領域",
+        corresponding: "吳老師是通訊作者",
+        corr_yes: "是",
+        corr_no: "否（不會顯示在網站上）",
+        corr_unknown: "未確認",
+        checked: "已對過出版社頁面",
+        eventTitle: "活動名稱",
+        date: "日期",
+        dateHint: "照你寫的原樣顯示，例如 2026.12。",
+        text: "說明",
+        photos: "照片",
+        addPhotos: "加入照片",
+        photosHint: "第一張是封面。可以一次選多張，會自動縮小並移除拍攝資訊。",
+        caption: "照片說明（可不填）",
+        cover: "封面",
+        left: "往前",
+        right: "往後",
+        none: "（不填）",
+        errors: "還有問題要先修正：",
+        errName: "有成員沒有英文姓名。",
+        errId: "代號「{id}」格式不對或重複了。",
+        errPaper: "有論文沒有標題。",
+        errEvent: "活動「{name}」沒有名稱或沒有照片。",
+        savedHint: "已存檔。接著打開 GitHub Desktop：寫一句說明 → Commit → Push origin。",
+        imageFail: "這張照片讀不出來：{name}\n手機的 HEIC 照片請先轉成 JPG。",
+        leave: "還有修改沒有儲存，確定要離開嗎？",
+        countPeople: "{n} 人",
+        countPapers: "{n} 篇",
+        countEvents: "{n} 則",
+        countPhotos: "{n} 張照片",
+      },
+      en: {
+        app: "Site Editor",
+        lang: "中文",
+        save: "Save",
+        saved: "Saved",
+        unsaved: "Unsaved changes",
+        noFolder: "No folder open",
+        tab_members: "Members",
+        tab_alumni: "Alumni",
+        tab_publications: "Publications",
+        tab_gallery: "Events & Gallery",
+        welcomeTitle: "Before you start",
+        welcomeSteps: [
+          "Download the website with GitHub Desktop (Clone repository: nckugese/nckugese.github.io).",
+          "Click the button below and choose that folder (the one containing index.html and the data folder).",
+          "Edit with the tabs at the top, then click Save in the top-right corner.",
+          "Back in GitHub Desktop, write a short summary, click Commit, then Push origin. The site updates in a minute or two.",
+        ],
+        welcomePublic: "The website is public. Only add phone numbers, email addresses or photos that the person agreed to publish.",
+        open: "Open website folder",
+        unsupported: "This browser cannot save files directly. Please use Chrome or Edge on a computer.",
+        wrongFolder: "data/members.json was not found in this folder. Please choose the top folder of the website.",
+        add: "Add",
+        search: "Search",
+        up: "Move up",
+        down: "Move down",
+        remove: "Delete",
+        confirmRemove: "Delete \"{name}\"?",
+        nothing: "Pick an item on the left, or click Add.",
+        newPerson: "New member",
+        newPaper: "New paper",
+        newEvent: "New event",
+        graduate: "Graduated: move to alumni",
+        gradDegree: "Degree",
+        gradYear: "Year",
+        gradGo: "Move",
+        cancel: "Cancel",
+        name: "Name (English)",
+        name_zh: "Name (Chinese)",
+        id: "ID",
+        idHint: "Used in the profile address. Lowercase letters, digits and - only, and it must be unique. Filled in from the name for new members.",
+        group: "Group",
+        title: "Role shown",
+        titleHint: "Leave empty to use the group's default.",
+        photo: "Photo",
+        photoHint: "Cropped to a square, resized and stripped of camera data automatically.",
+        pick: "Choose photo",
+        clear: "Remove photo",
+        email: "Email",
+        publicHint: "Shown publicly on the website.",
+        links: "Links",
+        linkName: "Label",
+        linkUrl: "Address",
+        addLink: "Add link",
+        bio: "About",
+        interests: "Research interests",
+        experience: "Experience",
+        education: "Education",
+        linesHint: "One item per line.",
+        office: "Office / desk",
+        phone: "Phone",
+        degree: "Degree",
+        year: "Year",
+        thesis: "Thesis title",
+        now: "Current position",
+        paperTitle: "Title",
+        authors: "Authors",
+        venue: "Journal, volume, pages",
+        link: "Link",
+        linkHint: "A DOI link is best, e.g. https://doi.org/10.xxxx/...",
+        kind: "Type",
+        kind_journal: "Journal article",
+        kind_conference: "Conference paper",
+        kind_chapter: "Book chapter",
+        field: "Field",
+        corresponding: "Prof. Wu is corresponding author",
+        corr_yes: "Yes",
+        corr_no: "No (hidden on the website)",
+        corr_unknown: "Not checked",
+        checked: "Checked against the publisher's page",
+        eventTitle: "Event name",
+        date: "Date",
+        dateHint: "Shown exactly as typed, e.g. 2026.12.",
+        text: "Description",
+        photos: "Photos",
+        addPhotos: "Add photos",
+        photosHint: "The first photo is the cover. You can pick several at once; they are resized and stripped of camera data.",
+        caption: "Caption (optional)",
+        cover: "Cover",
+        left: "Earlier",
+        right: "Later",
+        none: "(none)",
+        errors: "Please fix these first:",
+        errName: "A member has no English name.",
+        errId: "ID \"{id}\" is invalid or used twice.",
+        errPaper: "A paper has no title.",
+        errEvent: "Event \"{name}\" has no name or no photos.",
+        savedHint: "Saved. Now open GitHub Desktop: write a summary, Commit, then Push origin.",
+        imageFail: "This photo could not be read: {name}\nConvert HEIC photos from phones to JPG first.",
+        leave: "You have unsaved changes. Leave anyway?",
+        countPeople: "{n} people",
+        countPapers: "{n} papers",
+        countEvents: "{n} events",
+        countPhotos: "{n} photos",
+      },
+    };
+
+    const GROUP_ZH = {
+      professor: "教授",
+      postdoc: "博士後研究員",
+      phd: "博士班",
+      m2: "碩二",
+      m1: "碩一",
+      undergrad: "大學部專題生",
+      staff: "人員",
+    };
+
+    const FILES = {
+      members: "data/members.json",
+      alumni: "data/alumni.json",
+      publications: "data/publications.json",
+      gallery: "data/gallery.json",
+    };
+
+    const ORDER = {
+      person: ["id", "group", "name", "name_zh", "title", "degree", "year", "photo", "email", "office", "phone", "links", "bio", "interests", "experience", "education", "thesis", "now"],
+      paper: ["year", "title", "authors", "venue", "link", "kind", "field", "corresponding", "corresponding_checked"],
+      event: ["title", "date", "text", "photos"],
+    };
+
+    const S = {
+      lang: (() => {
+        try {
+          return localStorage.getItem("gese-editor-lang") || (navigator.language.startsWith("zh") ? "zh" : "en");
+        } catch {
+          return "zh";
+        }
+      })(),
+      root: null,
+      data: {},
+      tab: "members",
+      pick: { members: 0, alumni: 0, publications: 0, gallery: 0 },
+      dirty: new Set(),
+      pending: new Map(),
+      shown: new Map(),
+      query: "",
+      graduating: false,
+    };
+
+    const $ = (sel, root = document) => root.querySelector(sel);
+    const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+    const t = (key, vars = {}) => String(TEXT[S.lang][key] ?? key).replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? "");
+    const slug = (v) =>
+      String(v || "")
+        .normalize("NFKD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 40);
+
+    const toast = (msg, bad = false) => {
+      document.querySelectorAll(".toast").forEach((n) => n.remove());
+      const n = document.body.appendChild(document.createElement("div"));
+      n.className = `toast${bad ? " bad" : ""}`;
+      n.textContent = msg;
+      setTimeout(() => n.remove(), bad ? 8000 : 5000);
+    };
+
+    const touch = (file) => {
+      S.dirty.add(file);
+      header();
+    };
+
+    const parse = (text) => JSON.parse(text.replace(/^\uFEFF/, "").replace(/("(?:\\.|[^"\\])*")|,(?=\s*[}\]])/g, (m, s) => s ?? ""));
+
+    const inline = (value) => {
+      if (Array.isArray(value)) return `[${value.map(inline).join(", ")}]`;
+      if (value && typeof value === "object") return `{${Object.entries(value).map(([k, v]) => `${JSON.stringify(k)}: ${inline(v)}`).join(", ")}}`;
+      return JSON.stringify(value);
+    };
+
+    const format = (value, indent = "") => {
+      const flat = inline(value);
+      if (value === null || typeof value !== "object" || indent.length + flat.length <= 110) return flat;
+      const next = indent + "  ";
+      if (Array.isArray(value)) return `[\n${value.map((v) => next + format(v, next)).join(",\n")}\n${indent}]`;
+      return `{\n${Object.entries(value)
+        .map(([k, v]) => `${next}${JSON.stringify(k)}: ${format(v, next)}`)
+        .join(",\n")}\n${indent}}`;
+    };
+
+    const tidy = (obj, order) => {
+      const out = {};
+      for (const k of order) if (k in obj) out[k] = obj[k];
+      for (const k of Object.keys(obj)) if (!(k in out) && !k.startsWith("_")) out[k] = obj[k];
+      for (const k of Object.keys(out)) {
+        const v = out[k];
+        if (v === "" || v === undefined || v === null || (Array.isArray(v) && !v.length) || (v && typeof v === "object" && !Array.isArray(v) && !Object.keys(v).length)) delete out[k];
+      }
+      return out;
+    };
+
+    const dirOf = async (path, create = false) => {
+      let dir = S.root;
+      for (const part of path) dir = await dir.getDirectoryHandle(part, { create });
+      return dir;
+    };
+
+    const readFile = async (path) => {
+      const parts = path.split("/");
+      const dir = await dirOf(parts.slice(0, -1));
+      return (await dir.getFileHandle(parts.at(-1))).getFile();
+    };
+
+    const writeFile = async (path, data) => {
+      const parts = path.split("/");
+      const dir = await dirOf(parts.slice(0, -1), true);
+      const handle = await dir.getFileHandle(parts.at(-1), { create: true });
+      const out = await handle.createWritable();
+      await out.write(data);
+      await out.close();
+    };
+
+    const exists = async (path) => {
+      try {
+        await readFile(path);
+        return true;
+      } catch {
+        return false;
+      }
+    };
+
+    const imageUrl = (path) => {
+      if (!path) return Promise.resolve("");
+      if (S.pending.has(path)) return Promise.resolve(S.pending.get(path).url);
+      if (!S.shown.has(path)) {
+        S.shown.set(
+          path,
+          readFile(path)
+            .then((f) => URL.createObjectURL(f))
+            .catch(() => "")
+        );
+      }
+      return S.shown.get(path);
+    };
+
+    const fillImages = (root) =>
+      root.querySelectorAll("img[data-path]").forEach(async (img) => {
+        const url = await imageUrl(img.dataset.path);
+        if (url) img.src = url;
+        else img.removeAttribute("src");
+      });
+
+    const shrink = async (file, { square, max }) => {
+      const bitmap = await createImageBitmap(file, { imageOrientation: "from-image" });
+      let sx = 0;
+      let sy = 0;
+      let sw = bitmap.width;
+      let sh = bitmap.height;
+      if (square) {
+        const side = Math.min(sw, sh);
+        sx = (sw - side) / 2;
+        sy = (sh - side) * 0.3;
+        sw = sh = side;
+      }
+      const scale = Math.min(1, max / Math.max(sw, sh));
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.round(sw * scale);
+      canvas.height = Math.round(sh * scale);
+      const ctx = canvas.getContext("2d");
+      ctx.imageSmoothingQuality = "high";
+      ctx.drawImage(bitmap, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
+      return new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.86));
+    };
+
+    const stage = (path, blob) => {
+      const old = S.pending.get(path);
+      if (old) URL.revokeObjectURL(old.url);
+      S.pending.set(path, { blob, url: URL.createObjectURL(blob) });
+      S.shown.delete(path);
+    };
+
+    const choose = (multiple) =>
+      new Promise((resolve) => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        input.multiple = multiple;
+        input.onchange = () => resolve([...input.files]);
+        input.click();
+      });
+
+    async function openRoot(handle) {
+      try {
+        if (handle.requestPermission && (await handle.requestPermission({ mode: "readwrite" })) !== "granted") return;
+        S.root = handle;
+        const data = {};
+        for (const [key, path] of Object.entries(FILES)) {
+          try {
+            data[key] = parse(await (await readFile(path)).text());
+          } catch (error) {
+            if (key === "gallery" && !(await exists(path))) data[key] = { events: [] };
+            else if (key === "members") throw new Error(t("wrongFolder"));
+            else throw new Error(`${path}: ${error.message}`);
+          }
+        }
+        data.members.people ??= [];
+        data.alumni.people ??= [];
+        data.publications.publications ??= [];
+        data.gallery.events ??= [];
+        S.data = data;
+        S.dirty.clear();
+        S.pending.clear();
+        S.shown.clear();
+        render();
+      } catch (error) {
+        S.root = null;
+        toast(error.message, true);
+      }
+    }
+
+    const listOf = (tab) =>
+      ({
+        members: () => S.data.members.people,
+        alumni: () => S.data.alumni.people,
+        publications: () => S.data.publications.publications,
+        gallery: () => S.data.gallery.events,
+      })[tab]();
+
+    const fileOf = (tab) => (tab === "members" ? "members" : tab);
+
+    const groupLabel = (id) => {
+      const g = (S.data.members.groups || []).find((x) => x.id === id);
+      return S.lang === "zh" ? GROUP_ZH[id] || g?.title || id : g?.title || id;
+    };
+
+    const labelOf = (tab, item) => {
+      if (tab === "members" || tab === "alumni") return [item.name || t("newPerson"), item.name_zh || ""];
+      if (tab === "publications") return [item.title || t("newPaper"), [item.year, item.venue].filter(Boolean).join(" · ")];
+      return [item.title || t("newEvent"), [item.date, t("countPhotos", { n: (item.photos || []).length })].filter(Boolean).join(" · ")];
+    };
+
+    const firstPhoto = (item) => {
+      const p = (item.photos || [])[0];
+      const file = typeof p === "string" ? p : p?.file;
+      return file ? `assets/gallery/${file}` : "";
+    };
+
+    function header() {
+      document.documentElement.lang = S.lang === "zh" ? "zh-Hant" : "en";
+      document.querySelectorAll("[data-t]").forEach((n) => (n.textContent = t(n.dataset.t)));
+      $("#lang").textContent = t("lang");
+      $("#save").textContent = t("save");
+      $("#save").disabled = !S.root || (!S.dirty.size && !S.pending.size);
+      const status = $("#status");
+      status.textContent = !S.root ? t("noFolder") : S.dirty.size || S.pending.size ? t("unsaved") : t("saved");
+      status.classList.toggle("dirty", !!(S.dirty.size || S.pending.size));
+      $("#tabs").innerHTML = S.root
+        ? ["members", "alumni", "publications", "gallery"]
+            .map((tab) => `<button type="button" data-tab="${tab}" aria-current="${S.tab === tab}">${t(`tab_${tab}`)}</button>`)
+            .join("")
+        : "";
+    }
+
+    function render() {
+      header();
+      const app = $("#app");
+      if (!S.root) {
+        const ok = "showDirectoryPicker" in window;
+        app.innerHTML = `
+          <section class="welcome">
+            <h2>${t("welcomeTitle")}</h2>
+            <ol>${TEXT[S.lang].welcomeSteps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol>
+            <p class="warn">${t("welcomePublic")}</p>
+            ${ok ? `<button class="btn primary" type="button" id="open">${t("open")}</button>` : `<p class="warn">${t("unsupported")}</p>`}
+          </section>`;
+        $("#open")?.addEventListener("click", async () => {
+          try {
+            await openRoot(await window.showDirectoryPicker({ id: "gese-site", mode: "readwrite" }));
+          } catch (error) {
+            if (error.name !== "AbortError") toast(error.message, true);
+          }
+        });
+        return;
+      }
+
+      const items = listOf(S.tab);
+      S.pick[S.tab] = Math.min(S.pick[S.tab], items.length - 1);
+      app.innerHTML = `
+        <div class="layout">
+          <aside class="list">
+            <div class="list-head">
+              <input type="search" id="query" placeholder="${t("search")}" value="${esc(S.query)}">
+              <button class="btn" type="button" id="add">＋ ${t("add")}</button>
+            </div>
+            <div class="list-body" id="list"></div>
+          </aside>
+          <section class="form" id="form"></section>
+        </div>`;
+      $("#query").addEventListener("input", (e) => {
+        S.query = e.target.value;
+        drawList();
+      });
+      $("#add").addEventListener("click", addItem);
+      drawList();
+      drawForm();
+    }
+
+    function drawList() {
+      const items = listOf(S.tab);
+      const q = S.query.trim().toLowerCase();
+      const match = (item) => !q || JSON.stringify(item).toLowerCase().includes(q);
+      const row = (item, i) => {
+        const [main, sub] = labelOf(S.tab, item);
+        const pic =
+          S.tab === "members" || S.tab === "alumni"
+            ? item.photo
+              ? `<img data-path="${esc(item.photo)}" alt="">`
+              : `<span class="ph"></span>`
+            : S.tab === "gallery"
+              ? `<img class="thumb" data-path="${esc(firstPhoto(item))}" alt="">`
+              : "";
+        return `<button type="button" class="item" data-i="${i}" aria-current="${i === S.pick[S.tab]}">${pic}<span>${esc(main)}<small>${esc(sub)}</small></span></button>`;
+      };
+
+      let html = "";
+      const indexed = items.map((item, i) => [item, i]).filter(([item]) => match(item));
+      if (S.tab === "members") {
+        for (const g of S.data.members.groups || []) {
+          const rows = indexed.filter(([p]) => p.group === g.id);
+          if (rows.length) html += `<div class="list-group">${esc(groupLabel(g.id))}</div>${rows.map(([p, i]) => row(p, i)).join("")}`;
+        }
+        const known = new Set((S.data.members.groups || []).map((g) => g.id));
+        const rest = indexed.filter(([p]) => !known.has(p.group));
+        if (rest.length) html += `<div class="list-group">?</div>${rest.map(([p, i]) => row(p, i)).join("")}`;
+      } else if (S.tab === "alumni") {
+        const years = [...new Set(indexed.map(([p]) => p.year ?? ""))].sort((a, b) => Number(b) - Number(a));
+        for (const y of years) html += `<div class="list-group">${esc(y || "?")}</div>${indexed.filter(([p]) => (p.year ?? "") === y).map(([p, i]) => row(p, i)).join("")}`;
+      } else {
+        html = indexed.map(([p, i]) => row(p, i)).join("");
+      }
+      const count = { members: "countPeople", alumni: "countPeople", publications: "countPapers", gallery: "countEvents" }[S.tab];
+      $("#list").innerHTML = `<div class="list-group">${t(count, { n: items.length })}</div>${html}`;
+      $("#list")
+        .querySelectorAll(".item")
+        .forEach((b) =>
+          b.addEventListener("click", () => {
+            S.pick[S.tab] = Number(b.dataset.i);
+            S.graduating = false;
+            drawList();
+            drawForm();
+          })
+        );
+      fillImages($("#list"));
+    }
+
+    const field = (label, control, { hint = "", req = false } = {}) =>
+      `<div class="field"><label>${esc(label)}${req ? ' <span class="req">*</span>' : ""}</label><div>${control}</div>${hint ? `<div class="hint">${esc(hint)}</div>` : ""}</div>`;
+
+    const input = (key, value, type = "text") => `<input type="${type}" data-key="${key}" value="${esc(value ?? "")}">`;
+    const area = (key, value) => `<textarea data-key="${key}">${esc(value ?? "")}</textarea>`;
+    const select = (key, value, options) =>
+      `<select data-key="${key}">${options.map(([v, l]) => `<option value="${esc(v)}"${String(value ?? "") === String(v) ? " selected" : ""}>${esc(l)}</option>`).join("")}</select>`;
+
+    function drawForm() {
+      const form = $("#form");
+      const items = listOf(S.tab);
+      const item = items[S.pick[S.tab]];
+      if (!item) {
+        form.innerHTML = `<div class="empty">${t("nothing")}</div>`;
+        return;
+      }
+      const [title] = labelOf(S.tab, item);
+      const tools = `
+        <button class="btn small" type="button" data-act="up">↑ ${t("up")}</button>
+        <button class="btn small" type="button" data-act="down">↓ ${t("down")}</button>
+        ${S.tab === "members" ? `<button class="btn small" type="button" data-act="grad">🎓 ${t("graduate")}</button>` : ""}
+        <button class="btn small danger" type="button" data-act="remove">${t("remove")}</button>`;
+      let body = "";
+
+      if (S.tab === "members" || S.tab === "alumni") {
+        const lines = (k) => field(t(k), area(k, (item[k] || []).join("\n")), { hint: t("linesHint") });
+        body += field(t("name"), input("name", item.name), { req: true });
+        body += field(t("name_zh"), input("name_zh", item.name_zh));
+        body += field(t("id"), input("id", item.id), { req: true, hint: t("idHint") });
+        if (S.tab === "members") {
+          body += field(t("group"), select("group", item.group, (S.data.members.groups || []).map((g) => [g.id, groupLabel(g.id)])));
+          body += field(t("title"), input("title", item.title), { hint: t("titleHint") });
+        } else {
+          body += field(t("degree"), select("degree", item.degree, [["M.S.", "M.S."], ["Ph.D.", "Ph.D."], ["B.S.", "B.S."]]));
+          body += field(t("year"), input("year", item.year, "number"));
+        }
+        body += field(
+          t("photo"),
+          `<div class="photo-box">${item.photo ? `<img data-path="${esc(item.photo)}" alt="">` : `<span class="ph"></span>`}<div><button class="btn small" type="button" data-act="photo">${t("pick")}</button>${item.photo ? `<button class="btn small danger" type="button" data-act="nophoto">${t("clear")}</button>` : ""}</div></div>`,
+          { hint: t("photoHint") }
+        );
+        body += field(t("email"), input("email", item.email), { hint: t("publicHint") });
+        const links = Object.entries(item.links || {});
+        body += field(
+          t("links"),
+          `<div id="links">${links
+            .map(
+              ([k, v], i) =>
+                `<div class="links-row"><input type="text" data-link="${i}" data-part="k" placeholder="${t("linkName")}" value="${esc(k)}"><input type="text" data-link="${i}" data-part="v" placeholder="${t("linkUrl")}" value="${esc(v)}"><button class="btn small danger" type="button" data-unlink="${i}">✕</button></div>`
+            )
+            .join("")}</div><button class="btn small" type="button" data-act="link">＋ ${t("addLink")}</button>`
+        );
+        if (S.tab === "alumni") {
+          body += field(t("thesis"), input("thesis", item.thesis));
+          body += field(t("now"), input("now", item.now), { hint: t("publicHint") });
+        }
+        body += lines("bio") + lines("interests") + lines("experience") + lines("education");
+        if (S.tab === "members") {
+          body += field(t("office"), input("office", item.office), { hint: t("publicHint") });
+          body += field(t("phone"), input("phone", item.phone), { hint: t("publicHint") });
+        }
+      } else if (S.tab === "publications") {
+        const fields = (S.data.publications.fields || []).map((f) => [f.id, f.title]);
+        body += field(t("paperTitle"), area("title", item.title), { req: true });
+        body += field(t("year"), input("year", item.year, "number"));
+        body += field(t("authors"), input("authors", item.authors));
+        body += field(t("venue"), input("venue", item.venue));
+        body += field(t("link"), input("link", item.link), { hint: t("linkHint") });
+        body += field(t("kind"), select("kind", item.kind || "journal", ["journal", "conference", "chapter"].map((k) => [k, t(`kind_${k}`)])));
+        body += field(t("field"), select("field", item.field || "", [["", t("none")], ...fields]));
+        body += field(
+          t("corresponding"),
+          select("corresponding", item.corresponding === true ? "yes" : item.corresponding === false ? "no" : "", [
+            ["", t("corr_unknown")],
+            ["yes", t("corr_yes")],
+            ["no", t("corr_no")],
+          ])
+        );
+        body += field(t("checked"), `<input type="checkbox" data-key="corresponding_checked"${item.corresponding_checked ? " checked" : ""}>`);
+      } else {
+        const photos = (item.photos || []).map((p) => (typeof p === "string" ? { file: p } : p));
+        body += field(t("eventTitle"), input("title", item.title), { req: true });
+        body += field(t("date"), input("date", item.date), { hint: t("dateHint") });
+        body += field(t("text"), area("text", item.text));
+        body += field(
+          t("photos"),
+          `<div class="shots">${photos
+            .map(
+              (p, i) => `
+              <div class="shot">
+                <img data-path="assets/gallery/${esc(p.file)}" alt="">
+                ${i === 0 ? `<div class="cover">${t("cover")}</div>` : ""}
+                <input type="text" data-caption="${i}" placeholder="${t("caption")}" value="${esc(p.caption || "")}">
+                <div class="row">
+                  <button type="button" data-move="${i}" data-by="-1" title="${t("left")}">←</button>
+                  <button type="button" data-drop="${i}" title="${t("remove")}">✕</button>
+                  <button type="button" data-move="${i}" data-by="1" title="${t("right")}">→</button>
+                </div>
+              </div>`
+            )
+            .join("")}</div><p><button class="btn small" type="button" data-act="shots">＋ ${t("addPhotos")}</button></p>`,
+          { hint: t("photosHint") }
+        );
+      }
+
+      const grad =
+        S.graduating && S.tab === "members"
+          ? `<div class="grad">${t("gradDegree")} <select id="gdeg"><option>M.S.</option><option>Ph.D.</option><option>B.S.</option></select> ${t("gradYear")} <input id="gyear" type="number" value="${new Date().getFullYear()}"> <button class="btn small primary" type="button" data-act="gradgo">${t("gradGo")}</button> <button class="btn small" type="button" data-act="gradno">${t("cancel")}</button></div>`
+          : "";
+      form.innerHTML = `<div class="form-head"><h2>${esc(title)}</h2>${tools}</div>${grad}${body}`;
+      bindForm(item);
+      fillImages(form);
+    }
+
+    function bindForm(item) {
+      const form = $("#form");
+      const file = fileOf(S.tab);
+      const changed = () => {
+        touch(file);
+        drawList();
+        const [title] = labelOf(S.tab, item);
+        $("h2", form).textContent = title;
+      };
+
+      form.querySelectorAll("[data-key]").forEach((el) =>
+        el.addEventListener(el.tagName === "SELECT" || el.type === "checkbox" ? "change" : "input", () => {
+          const k = el.dataset.key;
+          let v = el.type === "checkbox" ? el.checked : el.value;
+          if (["bio", "interests", "experience", "education"].includes(k)) v = el.value.split("\n").map((s) => s.trim()).filter(Boolean);
+          else if (k === "year") v = el.value === "" ? "" : Number(el.value);
+          else if (k === "corresponding") v = el.value === "yes" ? true : el.value === "no" ? false : "";
+          else if (typeof v === "string" && k !== "text") v = v.trim();
+          if (v === "" || (v === false && k !== "corresponding") || (Array.isArray(v) && !v.length)) delete item[k];
+          else item[k] = v;
+          if (k === "name" && item._new && !item._idTouched) {
+            item.id = uniqueId(slug(item.name) || "member", item);
+            const idBox = form.querySelector('[data-key="id"]');
+            if (idBox) idBox.value = item.id;
+          }
+          if (k === "id") item._idTouched = true;
+          changed();
+        })
+      );
+
+      const syncLinks = () => {
+        const rows = [...form.querySelectorAll(".links-row")];
+        const next = {};
+        rows.forEach((r) => {
+          const k = r.querySelector('[data-part="k"]').value.trim();
+          const v = r.querySelector('[data-part="v"]').value.trim();
+          if (k || v) next[k || v] = v;
+        });
+        if (Object.keys(next).length) item.links = next;
+        else delete item.links;
+        changed();
+      };
+      form.querySelectorAll("[data-link]").forEach((el) => el.addEventListener("input", syncLinks));
+      form.querySelectorAll("[data-unlink]").forEach((b) =>
+        b.addEventListener("click", () => {
+          b.closest(".links-row").remove();
+          syncLinks();
+        })
+      );
+
+      form.querySelectorAll("[data-caption]").forEach((el) =>
+        el.addEventListener("input", () => {
+          const i = Number(el.dataset.caption);
+          const p = item.photos[i];
+          const fileName = typeof p === "string" ? p : p.file;
+          const caption = el.value.trim();
+          item.photos[i] = caption ? { file: fileName, caption } : fileName;
+          touch(file);
+        })
+      );
+      form.querySelectorAll("[data-move]").forEach((b) =>
+        b.addEventListener("click", () => {
+          const i = Number(b.dataset.move);
+          const j = i + Number(b.dataset.by);
+          if (j < 0 || j >= item.photos.length) return;
+          [item.photos[i], item.photos[j]] = [item.photos[j], item.photos[i]];
+          touch(file);
+          drawForm();
+          drawList();
+        })
+      );
+      form.querySelectorAll("[data-drop]").forEach((b) =>
+        b.addEventListener("click", () => {
+          item.photos.splice(Number(b.dataset.drop), 1);
+          touch(file);
+          drawForm();
+          drawList();
+        })
+      );
+
+      form.querySelectorAll("[data-act]").forEach((b) =>
+        b.addEventListener("click", () => act(b.dataset.act, item))
+      );
+    }
+
+    const allIds = (except) =>
+      new Set([...S.data.members.people, ...S.data.alumni.people].filter((p) => p !== except).map((p) => p.id));
+
+    const uniqueId = (base, except) => {
+      const taken = allIds(except);
+      let id = base;
+      for (let n = 2; taken.has(id); n++) id = `${base}-${n}`;
+      return id;
+    };
+
+    async function act(what, item) {
+      const tab = S.tab;
+      const items = listOf(tab);
+      const i = items.indexOf(item);
+      const file = fileOf(tab);
+
+      if (what === "up" || what === "down") {
+        const j = i + (what === "up" ? -1 : 1);
+        if (j < 0 || j >= items.length) return;
+        [items[i], items[j]] = [items[j], items[i]];
+        S.pick[tab] = j;
+        touch(file);
+        drawList();
+        return;
+      }
+      if (what === "remove") {
+        if (!confirm(t("confirmRemove", { name: labelOf(tab, item)[0] }))) return;
+        items.splice(i, 1);
+        S.pick[tab] = Math.max(0, i - 1);
+        touch(file);
+        drawList();
+        drawForm();
+        return;
+      }
+      if (what === "grad" || what === "gradno") {
+        S.graduating = what === "grad";
+        drawForm();
+        return;
+      }
+      if (what === "gradgo") {
+        const degree = $("#gdeg").value;
+        const year = Number($("#gyear").value) || new Date().getFullYear();
+        items.splice(i, 1);
+        delete item.group;
+        delete item.title;
+        item.degree = degree;
+        item.year = year;
+        S.data.alumni.people.unshift(item);
+        S.graduating = false;
+        S.tab = "alumni";
+        S.pick.alumni = 0;
+        S.pick.members = Math.max(0, i - 1);
+        touch("members");
+        touch("alumni");
+        render();
+        return;
+      }
+      if (what === "link") {
+        item.links = { ...(item.links || {}), "": "" };
+        drawForm();
+        return;
+      }
+      if (what === "nophoto") {
+        delete item.photo;
+        touch(file);
+        drawForm();
+        drawList();
+        return;
+      }
+      if (what === "photo") {
+        const [picked] = await choose(false);
+        if (!picked) return;
+        if (!item.id) item.id = uniqueId(slug(item.name) || "member", item);
+        try {
+          const blob = await shrink(picked, { square: true, max: 600 });
+          const path = `assets/people/${item.id}.jpg`;
+          stage(path, blob);
+          item.photo = path;
+          touch(file);
+          drawForm();
+          drawList();
+        } catch {
+          toast(t("imageFail", { name: picked.name }), true);
+        }
+        return;
+      }
+      if (what === "shots") {
+        const picked = await choose(true);
+        if (!picked.length) return;
+        item.photos ??= [];
+        const folder = await folderFor(item);
+        let n = await nextNumber(folder);
+        for (const f of picked) {
+          try {
+            const blob = await shrink(f, { square: false, max: 1600 });
+            const name = `${folder}/${String(n).padStart(2, "0")}.jpg`;
+            n++;
+            stage(`assets/gallery/${name}`, blob);
+            item.photos.push(name);
+          } catch {
+            toast(t("imageFail", { name: f.name }), true);
+          }
+        }
+        touch(file);
+        drawForm();
+        drawList();
+      }
+    }
+
+    async function folderFor(event) {
+      const first = (event.photos || []).map((p) => (typeof p === "string" ? p : p.file)).find((f) => f.includes("/"));
+      if (first) return first.split("/")[0];
+      if (event._folder) return event._folder;
+      const year = (String(event.date || "").match(/\d{4}/) || [new Date().getFullYear()])[0];
+      const base = `${year}-${slug(event.title) || "event"}`;
+      const used = new Set(S.data.gallery.events.flatMap((e) => (e.photos || []).map((p) => String(typeof p === "string" ? p : p.file).split("/")[0])));
+      let name = base;
+      for (let n = 2; used.has(name) || (await dirOf(["assets", "gallery", name]).then(() => true, () => false)); n++) name = `${base}-${n}`;
+      event._folder = name;
+      return name;
+    }
+
+    async function nextNumber(folder) {
+      const taken = new Set();
+      for (const key of S.pending.keys()) if (key.startsWith(`assets/gallery/${folder}/`)) taken.add(key);
+      try {
+        const dir = await dirOf(["assets", "gallery", folder]);
+        for await (const name of dir.keys()) taken.add(`assets/gallery/${folder}/${name}`);
+      } catch {}
+      let n = 1;
+      while (taken.has(`assets/gallery/${folder}/${String(n).padStart(2, "0")}.jpg`)) n++;
+      return n;
+    }
+
+    function addItem() {
+      const tab = S.tab;
+      const items = listOf(tab);
+      let item;
+      if (tab === "members") {
+        const groups = S.data.members.groups || [];
+        item = { id: uniqueId("new-member"), group: (groups.find((g) => g.id === "m1") || groups.at(-1) || {}).id || "m1", name: "", _new: true };
+        const after = items.map((p) => p.group).lastIndexOf(item.group);
+        items.splice(after + 1, 0, item);
+      } else if (tab === "alumni") {
+        item = { id: uniqueId("new-alumni"), name: "", degree: "M.S.", year: new Date().getFullYear(), _new: true };
+        items.unshift(item);
+      } else if (tab === "publications") {
+        item = { year: new Date().getFullYear(), title: "", kind: "journal", corresponding: true };
+        items.unshift(item);
+      } else {
+        item = { title: "", date: String(new Date().getFullYear()), photos: [] };
+        items.unshift(item);
+      }
+      S.query = "";
+      S.pick[tab] = items.indexOf(item);
+      touch(fileOf(tab));
+      render();
+      $("#form input, #form textarea")?.focus();
+    }
+
+    function problems() {
+      const out = [];
+      const people = [...S.data.members.people, ...S.data.alumni.people];
+      const seen = new Map();
+      for (const p of people) seen.set(p.id, (seen.get(p.id) || 0) + 1);
+      for (const p of people) {
+        if (!String(p.name || "").trim()) out.push(t("errName"));
+        if (!/^[a-z0-9-]+$/.test(p.id || "") || seen.get(p.id) > 1) out.push(t("errId", { id: p.id || "" }));
+      }
+      if (S.data.publications.publications.some((p) => !String(p.title || "").trim())) out.push(t("errPaper"));
+      for (const e of S.data.gallery.events) if (!String(e.title || "").trim() || !(e.photos || []).length) out.push(t("errEvent", { name: e.title || "?" }));
+      return [...new Set(out)];
+    }
+
+    async function save() {
+      const issues = problems();
+      if (issues.length) {
+        toast(`${t("errors")}\n${issues.join("\n")}`, true);
+        return;
+      }
+      $("#save").disabled = true;
+      try {
+        for (const [path, { blob }] of S.pending) await writeFile(path, blob);
+        for (const [path, entry] of S.pending) S.shown.set(path, Promise.resolve(entry.url));
+        S.pending.clear();
+
+        const out = {
+          members: () => ({ ...S.data.members, people: S.data.members.people.map((p) => tidy(p, ORDER.person)) }),
+          alumni: () => ({ ...S.data.alumni, people: S.data.alumni.people.map((p) => tidy(p, ORDER.person)) }),
+          publications: () => ({ ...S.data.publications, publications: S.data.publications.publications.map((p) => tidy(p, ORDER.paper)) }),
+          gallery: () => ({ ...S.data.gallery, events: S.data.gallery.events.map((e) => tidy(e, ORDER.event)) }),
+        };
+        for (const key of [...S.dirty]) {
+          await writeFile(FILES[key], format(out[key]()) + "\n");
+          S.dirty.delete(key);
+        }
+        for (const list of [S.data.members.people, S.data.alumni.people]) for (const p of list) delete p._new;
+        toast(t("savedHint"));
+      } catch (error) {
+        toast(error.message, true);
+      }
+      header();
+    }
+
+    $("#lang").addEventListener("click", () => {
+      S.lang = S.lang === "zh" ? "en" : "zh";
+      try {
+        localStorage.setItem("gese-editor-lang", S.lang);
+      } catch {}
+      render();
+    });
+    $("#save").addEventListener("click", save);
+    $("#tabs").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-tab]");
+      if (!b) return;
+      S.tab = b.dataset.tab;
+      S.query = "";
+      S.graduating = false;
+      render();
+    });
+    document.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {
+        e.preventDefault();
+        if (!$("#save").disabled) save();
+      }
+    });
+    window.addEventListener("beforeunload", (e) => {
+      if (S.dirty.size || S.pending.size) {
+        e.preventDefault();
+        e.returnValue = t("leave");
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>

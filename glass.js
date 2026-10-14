@@ -1,6 +1,5 @@
 window.glass = (() => {
   const PHOTO = "assets/bg.jpg";
-  const SCENE_SCALE = 4;
   const LOOKS = {
     normal: { blur: Math.hypot(2, 9), saturate: 1.4, brightness: 0.9 },
     reading: { blur: Math.hypot(9, 30), saturate: 1.15, brightness: 0.58 },
@@ -71,6 +70,14 @@ window.glass = (() => {
         c = mix(c, vec3(1.0), mix(0.2, 0.06, (v.x + 1.0 - v.y) * 0.5));
       }
       gl_FragColor = vec4(clamp(c, 0.0, 1.0), 1.0);
+    }`;
+
+  const COPY_FRAGMENT = `${HEAD}
+    uniform sampler2D u_tex;
+    void main() {
+      vec3 c = texture2D(u_tex, v).rgb;
+      float n = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453);
+      gl_FragColor = vec4(c + (n - 0.5) / 255.0, 1.0);
     }`;
 
   const LENS_FRAGMENT = `${HEAD}
@@ -174,7 +181,8 @@ window.glass = (() => {
     "u_hover",
     "u_fill",
   ]);
-  if (!photoPass || !blurPass || !lensPass) return null;
+  const copyPass = program(COPY_FRAGMENT, ["u_tex"]);
+  if (!photoPass || !blurPass || !lensPass || !copyPass) return null;
 
   gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
@@ -215,8 +223,9 @@ window.glass = (() => {
   const drawScene = () => {
     view.w = document.documentElement.clientWidth;
     view.h = window.innerHeight;
-    const w = Math.max(2, Math.ceil(view.w / SCENE_SCALE));
-    const h = Math.max(2, Math.ceil(view.h / SCENE_SCALE));
+    const scale = Math.max(4, Math.ceil(look.blur * 0.375));
+    const w = Math.max(2, Math.ceil(view.w / scale));
+    const h = Math.max(2, Math.ceil(view.h / scale));
     if (w !== sceneSize.w || h !== sceneSize.h) {
       sceneSize.w = w;
       sceneSize.h = h;
@@ -239,7 +248,7 @@ window.glass = (() => {
     gl.uniform2f(photoPass.at.u_image, image.w, image.h);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 
-    const spacing = ((look.blur / SCENE_SCALE) * 3) / 8;
+    const spacing = ((look.blur / scale) * 3) / 8;
     gl.useProgram(blurPass.id);
     gl.uniform1i(blurPass.at.u_tex, 0);
     gl.uniform1f(blurPass.at.u_saturate, look.saturate);
@@ -261,21 +270,23 @@ window.glass = (() => {
     sceneStale = false;
 
     if (!sheets.size) return;
-    if (surface.width < w || surface.height < h) {
-      surface.width = Math.max(surface.width, w);
-      surface.height = Math.max(surface.height, h);
+    const fw = Math.max(2, Math.round(view.w));
+    const fh = Math.max(2, Math.round(view.h));
+    if (surface.width < fw || surface.height < fh) {
+      surface.width = Math.max(surface.width, fw);
+      surface.height = Math.max(surface.height, fh);
     }
-    gl.viewport(0, 0, w, h);
+    gl.viewport(0, 0, fw, fh);
+    gl.useProgram(copyPass.id);
     gl.bindTexture(gl.TEXTURE_2D, targets[0].texture);
-    gl.uniform2f(blurPass.at.u_step, 0, 0);
-    gl.uniform1f(blurPass.at.u_finish, 0);
+    gl.uniform1i(copyPass.at.u_tex, 0);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     for (const [host, sheet] of sheets) {
-      if (sheet.canvas.width !== w || sheet.canvas.height !== h) {
-        sheet.canvas.width = w;
-        sheet.canvas.height = h;
+      if (sheet.canvas.width !== fw || sheet.canvas.height !== fh) {
+        sheet.canvas.width = fw;
+        sheet.canvas.height = fh;
       }
-      sheet.ctx.drawImage(surface, 0, surface.height - h, w, h, 0, 0, w, h);
+      sheet.ctx.drawImage(surface, 0, surface.height - fh, fw, fh, 0, 0, fw, fh);
       host.classList.add("has-frost");
     }
   };
@@ -513,5 +524,5 @@ window.glass = (() => {
 
   if (document.body.classList.contains("reading")) Object.assign(look, LOOKS.reading);
 
-  return { attach, prune, refresh, frost };
+  return { attach, prune, refresh, frost, mark: (el) => items.has(el) && mark(el) };
 })();

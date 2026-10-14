@@ -1,14 +1,13 @@
 {
   "groups": [
-    { "id": "professor", "title": "Professor", "role": "Professor" },
-    { "id": "postdoc", "title": "Postdoctoral Researchers", "role": "Postdoctoral Researcher" },
-    { "id": "phd", "title": "PhD Students", "role": "PhD Student" },
-    { "id": "m2", "title": "Master's Students, 2nd Year", "role": "MS Student, 2nd Year" },
-    { "id": "m1", "title": "Master's Students, 1st Year", "role": "MS Student, 1st Year" },
-    { "id": "undergrad", "title": "Undergraduate Researchers", "role": "Undergraduate Researcher" },
-    { "id": "staff", "title": "Staff", "role": "Staff" }
+    {"id": "professor", "title": "Professor", "role": "Professor"},
+    {"id": "postdoc", "title": "Postdoctoral Researchers", "role": "Postdoctoral Researcher"},
+    {"id": "phd", "title": "PhD Students", "role": "PhD Student"},
+    {"id": "m2", "title": "Master's Students, 2nd Year", "role": "MS Student, 2nd Year"},
+    {"id": "m1", "title": "Master's Students, 1st Year", "role": "MS Student, 1st Year"},
+    {"id": "undergrad", "title": "Undergraduate Researchers", "role": "Undergraduate Researcher"},
+    {"id": "staff", "title": "Staff", "role": "Staff"}
   ],
-
   "people": [
     {
       "id": "wei-wu",
@@ -24,9 +23,7 @@
         "Google Scholar": "https://scholar.google.com/citations?user=I7JS6zMAAAAj",
         "NCKU Research": "https://researchoutput.ncku.edu.tw/en/persons/wei-wu"
       },
-      "bio": [
-        "Professor of Chemical Engineering at National Cheng Kung University since February 2011."
-      ],
+      "bio": ["Professor of Chemical Engineering at National Cheng Kung University since February 2011."],
       "interests": [
         "Green energy systems engineering",
         "Process intensification and optimization",
@@ -43,20 +40,22 @@
         "Visiting Scholar, Department of Chemical Engineering, Texas A&M University, USA (2015)"
       ]
     },
-
     {
       "id": "adi",
       "group": "postdoc",
-      "name": "Vincentius Surya Kurnia Adi"
+      "name": "Vincentius Surya Kurnia Adi",
+      "email": "vska@gs.ncku.edu.tw",
+      "links": {"Research": "https://www.researchgate.net/profile/Vincentius-Surya-Kurnia-Adi-2"}
     },
-
     {
       "id": "yashar-aryanfar",
       "group": "postdoc",
       "name": "Yashar Aryanfar",
       "photo": "assets/people/yashar.jpg",
+      "email": "yashar.aryanfar@gmail.com",
+      "links": {"Research": "https://sciprofiles.com/profile/2136430"},
       "bio": [
-        "Dr. Aryanfar earned his Ph.D. in Advanced Engineering Sciences from the Autonomous University of Ciudad Juarez (UACJ) in Mexico and is currently a postdoctoral researcher in the lab."
+        "Yashar Aryanfar earned his PhD in Advanced Engineering Sciences from the Autonomous University of Ciudad Juarez (UACJ) in Mexico. He is currently a postdoctoral researcher at National Cheng Kung University (NCKU) in Taiwan. His research spans a broad range of energy and environmental fields, including renewable energy, 4E (energy, exergy, economic, and environmental) analysis, advanced exergy analysis, geothermal systems, environmental engineering, and energy systems."
       ],
       "interests": [
         "Energy and environmental sciences",
@@ -67,24 +66,95 @@
       ],
       "education": ["Ph.D., Advanced Engineering Sciences, Autonomous University of Ciudad Juarez (UACJ), Mexico"]
     },
-
-    
-    { "id": "irfan", "group": "phd", "name": "Irfan", "photo": "assets/people/irfan.jpg" },
-    { "id": "deb", "group": "phd", "name": "Debayan Mazumdar" },
-
-    { "id": "hugo", "group": "m2", "name": "Hugo", "photo": "assets/people/hugo.jpg", "name_zh": "黃令雄" },
-    { "id": "alan", "group": "m2", "name": "Alan", "name_zh": "蔡宗霖", "photo": "assets/people/alan.jpg" },
-    { "id": "kai", "group": "m2", "name": "Kai", "name_zh": "陳威愷", "photo": "assets/people/kai.jpg" },
-    { "id": "gary2", "group": "m2", "name": "Gary", "name_zh": "楊孮銘", "photo": "assets/people/gary2.jpg" },
-    { "id": "brian", "group": "m2", "name": "Brian", "name_zh": "劉家安", "photo": "assets/people/brian.jpg" },
-    { "id": "hank", "group": "m2", "name": "Hank", "name_zh": "吳承翰", "photo": "assets/people/hank.jpg" },
-    { "id": "leaf", "group": "m2", "name": "Leaf", "name_zh": "葉良浩", "photo": "assets/people/leaf.jpg" },
-
-    { "id": "tammy", "group": "m1", "name": "Tammy", "name_zh": "孫欣佑", "photo": "assets/people/tammy.jpg" },
-    { "id": "iris", "group": "m1", "name": "Iris", "name_zh": "呂元薰", "photo": "assets/people/iris.jpg" },
-    { "id": "mark", "group": "m1", "name": "Mark", "name_zh": "馬維君" },
-    { "id": "jared", "group": "m1", "name": "Jared", "name_zh": "謝志堯" },
-    { "id": "tommy", "group": "m1", "name": "Tommy", "name_zh": "林世庭", "photo": "assets/people/tommy.jpg" },
-    { "id": "zoe", "group": "m1", "name": "Zoe", "name_zh": "王之賢" }
+    {
+      "id": "irfan",
+      "group": "phd",
+      "name": "Hafiz Muhammad Irfan",
+      "photo": "assets/people/irfan.jpg",
+      "email": "irfan.riasat@yahoo.com",
+      "links": {"Research": "https://scholar.google.com/citations?user=Ya_daRQAAAAJ"},
+      "bio": [
+        "I am currently a Ph.D. candidate at the NCKU (Taiwan), Department of Chemical Engineering. My research interests include process system engineering, which integrates principles from chemical engineering, applied mathematics, computer science, and other related disciplines to design, analyze, optimize, and control complex processes and systems."
+      ]
+    },
+    {
+      "id": "deb",
+      "group": "phd",
+      "name": "Debayan Mazumdar",
+      "email": "debayan26071996@gmail.com",
+      "links": {"Research": "https://scholar.google.com/citations?user=ilXV_D4AAAAJ"}
+    },
+    {
+      "id": "hugo",
+      "group": "m2",
+      "name": "Hugo",
+      "name_zh": "黃令雄",
+      "photo": "assets/people/hugo.jpg",
+      "email": "hugodemak300@gmail.com",
+      "links": {"Research": "https://ieeexplore.ieee.org/abstract/document/11702014"}
+    },
+    {
+      "id": "alan",
+      "group": "m2",
+      "name": "Alan",
+      "name_zh": "蔡宗霖",
+      "photo": "assets/people/alan.jpg",
+      "email": "n36144541@gs.ncku.edu.tw"
+    },
+    {
+      "id": "kai",
+      "group": "m2",
+      "name": "Kai",
+      "name_zh": "陳威愷",
+      "photo": "assets/people/kai.jpg",
+      "email": "n36141373@gs.ncku.edu.tw"
+    },
+    {
+      "id": "gary2",
+      "group": "m2",
+      "name": "Gary",
+      "name_zh": "楊孮銘",
+      "photo": "assets/people/gary2.jpg",
+      "email": "n36141438@gs.ncku.edu.tw"
+    },
+    {
+      "id": "brian",
+      "group": "m2",
+      "name": "Brian",
+      "name_zh": "劉家安",
+      "photo": "assets/people/brian.jpg",
+      "email": "n36144729@gs.ncku.edu.tw"
+    },
+    {
+      "id": "hank",
+      "group": "m2",
+      "name": "Hank",
+      "name_zh": "吳承翰",
+      "photo": "assets/people/hank.jpg",
+      "email": "m56144081@gs.ncku.edu.tw"
+    },
+    {
+      "id": "leaf",
+      "group": "m2",
+      "name": "Leaf",
+      "name_zh": "葉良浩",
+      "photo": "assets/people/leaf.jpg",
+      "email": "n36144648@gs.ncku.edu.tw"
+    },
+    {"id": "tammy", "group": "m1", "name": "Tammy", "name_zh": "孫欣佑", "photo": "assets/people/tammy.jpg"},
+    {"id": "iris", "group": "m1", "name": "Iris", "name_zh": "呂元薰", "photo": "assets/people/iris.jpg"},
+    {"id": "mark", "group": "m1", "name": "Mark", "name_zh": "馬維君"},
+    {"id": "jared", "group": "m1", "name": "Jared", "name_zh": "謝志堯"},
+    {"id": "tommy", "group": "m1", "name": "Tommy", "name_zh": "林世庭", "photo": "assets/people/tommy.jpg"},
+    {"id": "zoe", "group": "m1", "name": "Zoe", "name_zh": "王之賢"},
+    {
+      "id": "adewale-johnson-folayan",
+      "group": "postdoc",
+      "name": "Adewale Johnson Folayan",
+      "links": {"Research": "https://scholar.google.com/citations?user=2AGTJbQAAAAJ&hl=en"},
+      "bio": [
+        "Research interest: Petroleum Engineering, Chemical Engineering, Reservoir Engineering, Oil and Gas Well Drilling and Technology, Enhanced Oil Recovery, Natural Gas Engineering, Environmental Engineering and Sustainable Energy Solutions"
+      ]
+    }
   ]
 }

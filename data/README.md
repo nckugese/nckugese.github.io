@@ -12,7 +12,35 @@
 
 **這個網站是公開的。** 照片、email、現職等資訊，請先確認本人同意公開再放。
 
-## 怎麼改（不用安裝任何東西）
+## 用編輯器改（建議）
+
+成員、畢業生、論文、活動與相簿都可以用編輯器改，不用碰 JSON，也不用自己處理照片。編輯器有中文和英文介面，右上角切換。
+
+第一次使用：
+
+1. 安裝 GitHub Desktop（https://desktop.github.com），用實驗室帳號登入。
+2. 選 **Clone a repository**，選 `nckugese/nckugese.github.io`，下載到電腦。
+
+每次修改：
+
+1. 在 GitHub Desktop 按 **Fetch origin** / **Pull origin**，先拿到最新版本。
+2. 用電腦版 Chrome 或 Edge 打開 https://nckugese.github.io/editor/ ，或直接打開下載資料夾裡的 `editor/index.html`。
+3. 按「開啟網站資料夾」，選剛才下載的資料夾（裡面有 `index.html` 和 `data` 的那一層），瀏覽器詢問時按允許。
+4. 編輯，改完按右上角「儲存」（或 Ctrl+S）。
+5. 回到 GitHub Desktop，左下角寫一句說明，按 **Commit to main**，再按 **Push origin**。一到兩分鐘後網站更新。
+
+編輯器會自動處理的事：
+
+- 成員照片裁成正方形、縮到 600 像素；活動照片縮到長邊 1600 像素；都會移除拍攝地點等資訊，並放到正確的資料夾。
+- 新成員的代號依英文姓名自動產生。
+- 「畢業，移到畢業生」一鍵把成員搬到 `alumni.json`，填上學位和年份。
+- 存檔前檢查：代號重複、沒有姓名、論文沒有標題、活動沒有照片，都會先提示。
+
+編輯器不會刪除照片檔。從頁面上移除的照片，檔案還留在 `assets` 裡，需要的話在 GitHub Desktop 裡手動刪掉。
+
+研究頁（`research.json`）目前不在編輯器裡，照下面的方式直接改檔案。
+
+## 直接在 GitHub 網頁上改
 
 1. 用實驗室帳號登入 GitHub，打開 https://github.com/nckugese/nckugese.github.io
 2. 點進 `data` 資料夾，再點要改的檔案。
