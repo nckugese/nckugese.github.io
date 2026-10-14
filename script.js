@@ -311,8 +311,22 @@ const load = (url) => {
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 let visit = 0;
 
+const spots = new Map();
+const spotKey = (url) => {
+  const u = new URL(url, location.href);
+  return pathOf(u.href) + u.search;
+};
+const isProfile = (url) => new URL(url, location.href).searchParams.has("id");
+let moving = false;
+
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+window.addEventListener("scroll", () => !moving && spots.set(spotKey(location.href), window.scrollY), { passive: true });
+
 const show = async (url, push) => {
   const turn = ++visit;
+  if (push) spots.set(spotKey(location.href), window.scrollY);
+  const back = !push || (isProfile(location.href) && !isProfile(url) && pathOf(url) === pathOf(location.href)) ? spots.get(spotKey(url)) : undefined;
+  moving = true;
   setCurrent(url);
   try {
     main.classList.add("is-leaving");
@@ -331,16 +345,19 @@ const show = async (url, push) => {
     if (turn !== visit) return;
     pruneLenses();
     window.glass?.prune();
+    if (back !== undefined) window.scrollTo(0, back);
+    moving = false;
 
     void main.offsetWidth;
     main.classList.remove("is-leaving");
-    scrollToAnchor(url, "smooth");
+    if (back === undefined) scrollToAnchor(url, "smooth");
     const settle = () => {
       refreshLenses();
       window.glass?.refresh();
     };
     [120, 350, 750].forEach((ms) => setTimeout(settle, ms));
   } catch {
+    moving = false;
     location.href = url;
   }
 };

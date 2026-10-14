@@ -14,20 +14,14 @@
 
 ## 用編輯器改（建議）
 
-成員、畢業生、論文、活動與相簿都可以用編輯器改，不用碰 JSON，也不用自己處理照片。編輯器有中文和英文介面，右上角切換。
+成員、畢業生、論文、活動與相簿都可以用編輯器改，不用碰 JSON，也不用自己處理照片。編輯器有中文和英文介面，右上角切換。只需要電腦版 Chrome 或 Edge，不用安裝任何程式。
 
-第一次使用：
-
-1. 安裝 GitHub Desktop（https://desktop.github.com），用實驗室帳號登入。
-2. 選 **Clone a repository**，選 `nckugese/nckugese.github.io`，下載到電腦。
-
-每次修改：
-
-1. 在 GitHub Desktop 按 **Fetch origin** / **Pull origin**，先拿到最新版本。
-2. 用電腦版 Chrome 或 Edge 打開 https://nckugese.github.io/editor/ ，或直接打開下載資料夾裡的 `editor/index.html`。
-3. 按「開啟網站資料夾」，選剛才下載的資料夾（裡面有 `index.html` 和 `data` 的那一層），瀏覽器詢問時按允許。
-4. 編輯，改完按右上角「儲存」（或 Ctrl+S）。
-5. 回到 GitHub Desktop，左下角寫一句說明，按 **Commit to main**，再按 **Push origin**。一到兩分鐘後網站更新。
+1. **下載**：到 https://github.com/nckugese/nckugese.github.io ，按綠色的 **Code** → **Download ZIP**，在下載資料夾對 ZIP 按右鍵 → **解壓縮全部**。每次修改前都重新下載一次，才不會蓋掉別人的修改。
+2. **打開編輯器**：用 Chrome 或 Edge 打開 https://nckugese.github.io/editor/ ，或在解壓縮的資料夾裡打開 `editor/index.html`。
+3. **選資料夾**：按「開啟網站資料夾」，選直接包含 `index.html`、`data`、`editor` 的那一層（Windows 解壓縮常會多包一層同名資料夾，要選裡面那層），瀏覽器詢問時按允許。
+4. **編輯並儲存**：改完按右上角「儲存」（或 Ctrl+S），檔案會寫回電腦上的資料夾。
+5. **上傳**：回到 GitHub 網頁（需登入有權限的帳號），按 **Add file** → **Upload files**，從檔案總管把整個 `data` 資料夾拖進去；有新增或更換照片的話，`assets` 資料夾也拖進去。寫一句說明，按 **Commit changes**。GitHub 只會記錄內容有變的檔案，所以整個資料夾拖進去沒關係。
+6. **確認**：一到兩分鐘後打開網站，按 Ctrl+F5 重新整理。
 
 編輯器會自動處理的事：
 
@@ -36,7 +30,7 @@
 - 「畢業，移到畢業生」一鍵把成員搬到 `alumni.json`，填上學位和年份。
 - 存檔前檢查：代號重複、沒有姓名、論文沒有標題、活動沒有照片，都會先提示。
 
-編輯器不會刪除照片檔。從頁面上移除的照片，檔案還留在 `assets` 裡，需要的話在 GitHub Desktop 裡手動刪掉。
+編輯器不會刪除照片檔。從頁面上移除的照片，檔案還留在 `assets` 裡，需要的話在 GitHub 網頁上刪掉。
 
 研究頁（`research.json`）目前不在編輯器裡，照下面的方式直接改檔案。
 
