@@ -6,7 +6,7 @@
     {"id": "m2", "title": "Master's Students, 2nd Year", "role": "MS Student, 2nd Year"},
     {"id": "m1", "title": "Master's Students, 1st Year", "role": "MS Student, 1st Year"},
     {"id": "undergrad", "title": "Undergraduate Researchers", "role": "Undergraduate Researcher"},
-    {"id": "staff", "title": "Staff", "role": "Staff"}
+    {"id": "staff", "title": "Staff", "role": "Administrative Assistant"}
   ],
   "people": [
     {
