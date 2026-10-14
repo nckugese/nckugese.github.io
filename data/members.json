@@ -148,6 +148,16 @@
     {"id": "tommy", "group": "m1", "name": "Tommy", "name_zh": "林世庭", "photo": "assets/people/tommy.jpg"},
     {"id": "zoe", "group": "m1", "name": "Zoe", "name_zh": "王之賢"},
     {
+      "id": "nai-chia-chen",
+      "group": "staff",
+      "name": "Nai Chia Chen",
+      "name_zh": "陳乃嘉",
+      "title": "行政助理",
+      "photo": "assets/people/nai-chia-chen.jpg",
+      "office": "93952",
+      "phone": "62666 #222"
+    },
+    {
       "id": "adewale-johnson-folayan",
       "group": "postdoc",
       "name": "Adewale Johnson Folayan",
