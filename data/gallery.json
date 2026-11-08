@@ -1,15 +1,16 @@
 {
   "events": [
+    {"title": "Lab gathering", "date": "2026.11", "photos": ["2026-lab-gathering/01.jpg"]},
     {
       "title": "Graduation trip 2026",
-      "date": "2026",
+      "date": "2026.8",
       "photos": [
         "2026-graduation-trip-2026/01.jpg",
         "2026-graduation-trip-2026/02.jpg",
         "2026-graduation-trip-2026/03.jpg"
       ]
     },
-    {"title": "Thanksgiving at GESE", "date": "2024", "photos": ["2024-thanksgiving/01.jpg"]},
+    {"title": "Lab gathering", "date": "2024", "photos": ["2024-thanksgiving/01.jpg"]},
     {
       "title": "Net Zero Tech International Contest",
       "date": "2024",
